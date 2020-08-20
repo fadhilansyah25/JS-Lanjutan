@@ -37,6 +37,7 @@
 //     return mahasiswa;
 // }
 
+// 1 membuat object method terpisah 
 const methodMahasiswa = {
     makan : function (porsi) {
         this.energi += porsi;
@@ -53,9 +54,10 @@ const methodMahasiswa = {
 }
 
 function Mahasiswa(nama, energi) {
-    let mahasiswa = Object.create(methodMahasiswa);
+    let mahasiswa = Object.create(methodMahasiswa); // menggunakan object.create untuk mengotomatisasi pendaftaran method jika dibuat method yang baru
     mahasiswa.nama = nama;
     mahasiswa.energi = energi;
+    // 2 menginstansiasi object dengan method terpisah agar efisien dalam manajemen memori
     // mahasiswa.makan = methodMahasiswa.makan;
     // mahasiswa.main = methodMahasiswa.main;
     // mahasiswa.tidur = methodMahasiswa.tidur;
