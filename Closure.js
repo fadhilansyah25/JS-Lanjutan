@@ -57,17 +57,58 @@
 // a();
 
 // latihan hoisting dan scope
-function satu() {
-    var nama = 'Fadil';
-    console.log(nama);  
-}
+// function satu() {
+//     var nama = 'Fadil';
+//     console.log(nama);  
+// }
 
-function dua() {
-    console.log(nama);
-}
+// function dua() {
+//     console.log(nama);
+// }
 
-console.log(nama);
-var nama = 'amel';
-satu();
-dua('fikri');
-console.log(nama);
+// console.log(nama);
+// var nama = 'amel';
+// satu();
+// dua('fikri');
+// console.log(nama);
+
+// 2.1 Clousures
+// function init() {
+//     // let nama = 'Fadilansyah25';
+//     return function tampilNama(nama) {
+//         console.log(nama);
+//     }
+// }
+// let panggilNama = init();
+// panggilNama('Fadil');
+// panggilNama('Fikri');
+
+// alasan menggunakan closures
+// 1. untuk membuat function factories
+// function ucapkanSalam(waktu) {
+//     return function (nama) {
+//         console.log(`Halo ${nama}, Selamat ${waktu}, Semoga harimu menyenangkan`);
+//     }
+// }
+
+// let selamatPagi = ucapkanSalam('Pagi');
+// let selamatSiang = ucapkanSalam('Siang');
+// let selamatMalam = ucapkanSalam('Malam');
+
+// console.dir(selamatPagi);
+
+// 2. untuk membuat seolah-olah private method
+let add = (function () {
+    let counter = 0;
+    return function () {
+        return ++counter;
+    };
+})();
+
+console.log(add());
+console.log(add());
+console.log(add());
+console.log(add());
+console.log(add());
+
+// kata kunci : lexical scopes, clousures, immediately invoked function expression
