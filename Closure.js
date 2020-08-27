@@ -66,11 +66,17 @@
 //     console.log(nama);
 // }
 
+// console.log(nama); output:
+// var nama = 'amel';         
+// satu();                    
+// dua('fikri');               
 // console.log(nama);
-// var nama = 'amel';
-// satu();
-// dua('fikri');
-// console.log(nama);
+// output : 
+// undefined
+// Fadil
+// amel
+// amel
+
 
 // 2.1 Clousures
 // function init() {
@@ -87,7 +93,7 @@
 // 1. untuk membuat function factories
 // function ucapkanSalam(waktu) {
 //     return function (nama) {
-//         console.log(`Halo ${nama}, Selamat ${waktu}, Semoga harimu menyenangkan`);
+//         return `Halo ${nama}, Selamat ${waktu}, Semoga harimu menyenangkan`;
 //     }
 // }
 
@@ -95,7 +101,7 @@
 // let selamatSiang = ucapkanSalam('Siang');
 // let selamatMalam = ucapkanSalam('Malam');
 
-// console.dir(selamatPagi);
+// console.dir(selamatPagi('fadil'));
 
 // 2. untuk membuat seolah-olah private method
 let add = (function () {
@@ -105,6 +111,7 @@ let add = (function () {
     };
 })();
 
+let counter = 100;
 console.log(add());
 console.log(add());
 console.log(add());
