@@ -37,6 +37,9 @@
 //     return mahasiswa;
 // }
 
+// let fadil = Mahasiswa('Muhammad Fadil', 10);
+// let doddy = Mahasiswa('Doddy', 20);
+
 // 1 membuat object method terpisah 
 // const methodMahasiswa = {
 //     makan : function (porsi) {
