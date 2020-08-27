@@ -40,7 +40,40 @@
 // let fadil = Mahasiswa('Muhammad Fadil', 10);
 // let doddy = Mahasiswa('Doddy', 20);
 
-// 1 membuat object method terpisah 
+// function declaration cara 1. membuat object dengan method terpisah agar efisien dalam manajemen memori
+// tanpa object.create
+// const methodMahasiswa = {
+//     makan : function (porsi) {
+//         this.energi += porsi;
+//         console.log(`Halo ${this.nama}, Selamat makan`);
+//     },
+//     main : function (jam) {
+//         this.energi -= jam;
+//         console.log(`Halo ${this.nama}, Energi berkurang`);
+//     },
+//     tidur : function (jam) {
+//         this.energi += jam * 2;
+//         console.log(`Halo ${this.nama}, Energi bertambah`);
+//     }
+// }
+
+// function Mahasiswa(nama, energi) {
+//     let mahasiswa = {};
+//     mahasiswa.nama = nama;
+//     mahasiswa.energi = energi;
+//     // 2 menginstansiasi object dengan method terpisah agar efisien dalam manajemen memori
+//     mahasiswa.makan = methodMahasiswa.makan;
+//     mahasiswa.main = methodMahasiswa.main;
+//     mahasiswa.tidur = methodMahasiswa.tidur;
+//     return mahasiswa;
+// }
+
+// let fadil = Mahasiswa('Muhammad Fadil', 10);
+// let doddy = Mahasiswa('Doddy', 20);
+
+// 4. Object Create
+// function declaration cara 2. membuat object  dengan method terpisah agar efisien dalam manajemen memori
+// dengan object.create
 // const methodMahasiswa = {
 //     makan : function (porsi) {
 //         this.energi += porsi;
@@ -60,10 +93,6 @@
 //     let mahasiswa = Object.create(methodMahasiswa); // menggunakan object.create untuk mengotomatisasi pendaftaran method jika dibuat method yang baru
 //     mahasiswa.nama = nama;
 //     mahasiswa.energi = energi;
-//     // 2 menginstansiasi object dengan method terpisah agar efisien dalam manajemen memori
-//     // mahasiswa.makan = methodMahasiswa.makan;
-//     // mahasiswa.main = methodMahasiswa.main;
-//     // mahasiswa.tidur = methodMahasiswa.tidur;
 //     return mahasiswa;
 // }
 
@@ -87,8 +116,6 @@
 // }
 
 // let fadil = new Mahasiswa('fadil',10);
-
-// 4. Object Create
 
 
 // 5. Protoypes
