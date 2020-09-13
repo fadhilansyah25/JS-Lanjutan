@@ -59,26 +59,44 @@
 // });
 
 // Refactoring Fetch
-const inputKeyword = document.querySelector('.search-movie');
-const movies = getMovies(inputKeyword);
-movies.then(response => {
-    updateUI(response)
-});
+async function firstRun() {
+    try {
+        const inputKeyword = document.querySelector('.search-movie');
+        const movies = await getMovies(inputKeyword);
+        updateUI(movies)
+    } catch (error) {
+        alert(error);
+    }
+}
+
+firstRun();
 
 // Search Form dan Search Button
 const searchButton = document.querySelector('#button-addon2');
 searchButton.addEventListener('click', async function () {
-    const inputKeyword = document.querySelector('.search-movie');
-    const movies = await getMovies(inputKeyword);
-    updateUI(movies);
+    try {
+        const inputKeyword = document.querySelector('.search-movie');
+        const movies = await getMovies(inputKeyword);
+        updateUI(movies);
+    } catch (error) {
+        alert(error);
+    }
 });
 
 
 // Fetch movie dari API
 function getMovies(keyword) {
     return fetch(`http://www.omdbapi.com/?s=${keyword.value}&apikey=964e3858`)
-        .then(response => response.json())
-        .then(response => response.Search);
+        .then(response => {
+            if (!response.ok) throw new Error(response.statusText);
+            return response.json();
+        })
+        .then(response => {
+            if (response.Response === 'False') {
+                throw new Error(response.Error);
+            }
+            return response.Search;
+        });
 }
 
 // Update UI movies Card
@@ -94,9 +112,13 @@ function updateUI(movies) {
 document.addEventListener('click', async function (e) {
     if (e.target.classList.contains('modal-detail-button')) {
         const id = e.target.dataset.imdbid;
-        const movieDetail = await getMovieDetails(id);
-        let isiModal = showModal(movieDetail);
-        document.querySelector('.modal-body').innerHTML = isiModal;
+        try {
+            const movieDetail = await getMovieDetails(id);
+            let isiModal = showModal(movieDetail);
+            document.querySelector('.modal-body').innerHTML = isiModal;
+        } catch (error) {
+            document.querySelector('.modal-body').innerHTML = `<p>${error}</p>`;
+        }
     }
 });
 
@@ -104,14 +126,21 @@ document.addEventListener('click', async function (e) {
 // fetch movie detail API
 function getMovieDetails(id) {
     return fetch(`http://www.omdbapi.com/?i=${id}&apikey=964e3858`)
-        .then(result => result.json());
+        .then(result => {
+            if(!result.ok) throw new Error(result.statusText);
+            return result.json();
+        })
+        .then(result => {
+            console.log(result);
+            return result;
+        });
 }
 
 // function untuk menampilkan HTML Card
 function showCard(movie) {
     return `<div class="col-md-4 my-3">
                 <div class="card" style="width: 18rem;">
-                    <img src="${movie.Poster}" class="card-img-top" alt="${movie.Title}">
+                ${movie.Poster === "N/A" ? `<div class="mx-auto"> Image Not Found  <div>` : `<img src="${movie.Poster}" alt="" class="img-fluid ">`}
                     <div class="card-body">
                         <h5 class="card-title">${movie.Title}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">${movie.Year}</h6>
@@ -127,7 +156,7 @@ function showModal(result) {
     return `<div class="container-fluid">
                 <div class="row">
                     <div class="col-md-3">
-                        <img src="${result.Poster}" alt="" class="img-fluid">
+                        ${result.Poster === "N/A" ? `<div class="mx-auto"> Image Not Found  <div>` : `<img src="${result.Poster}" alt="" class="img-fluid">`}
                     </div>
                     <div class="col-md">
                         <ul class="list-group">
